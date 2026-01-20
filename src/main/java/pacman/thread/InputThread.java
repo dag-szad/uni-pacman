@@ -17,17 +17,17 @@ public class InputThread implements Runnable {
     public void run() {
         System.out.println("InputThread started");
 
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (gameState.isGameRunning()) {
+                String input = scanner.nextLine();
 
-        while (gameState.isGameRunning()) {
-            String input = scanner.nextLine();
-
-            switch (input.toLowerCase()) {
-                case "w" -> gameState.setPacmanDirection(Direction.UP);
-                case "s" -> gameState.setPacmanDirection(Direction.DOWN);
-                case "a" -> gameState.setPacmanDirection(Direction.LEFT);
-                case "d" -> gameState.setPacmanDirection(Direction.RIGHT);
-                case "q" -> gameState.stopGame();
+                switch (input.toLowerCase()) {
+                    case "w" -> gameState.setPacmanDirection(Direction.UP);
+                    case "s" -> gameState.setPacmanDirection(Direction.DOWN);
+                    case "a" -> gameState.setPacmanDirection(Direction.LEFT);
+                    case "d" -> gameState.setPacmanDirection(Direction.RIGHT);
+                    case "q" -> gameState.stopGame();
+                }
             }
         }
     }
